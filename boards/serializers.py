@@ -1,7 +1,10 @@
 from rest_framework.serializers import ModelSerializer
 from .models import Board
+from users.serializers import UserOverviewSerializer
 
 class BoardSerializer(ModelSerializer) :
+    author = UserOverviewSerializer(read_only=True)
+
     class Meta :
         model = Board
 

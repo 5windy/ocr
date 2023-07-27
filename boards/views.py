@@ -2,6 +2,7 @@
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from .models import Board
@@ -20,6 +21,8 @@ def say_hello(request) :
 #     return Response(serializer.data)
 
 class Boards(APIView) :
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get(self, request) :
         boards = Board.objects.all()
         serializer = BoardSerializer(boards, many=True)

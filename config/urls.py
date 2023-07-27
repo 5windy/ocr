@@ -19,11 +19,11 @@ from django.conf.urls.static import static
 
 from django.contrib import admin
 from django.urls import path, include
-from boards.views import BoardDetail
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/boards/', include("boards.urls")),
+    path('api/v1/users/', include("users.urls")),
 ]
 
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
