@@ -5,7 +5,7 @@ class BoardSerializer(ModelSerializer) :
     class Meta :
         model = Board
 
-        # fields = "__all__"
+        fields = "__all__"
 
         # depth = 1
 
@@ -15,6 +15,6 @@ class BoardSerializer(ModelSerializer) :
         #     "author",
         # ]
 
-        exclude = [
-            "modified_at",
-        ]
+        # exclude = [
+        #     "modified_at",
+        # ]

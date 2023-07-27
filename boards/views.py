@@ -1,6 +1,7 @@
 # from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework.exceptions import NotFound
 from django.shortcuts import render
 from django.http.response import HttpResponse
 from .models import Board
@@ -25,15 +26,41 @@ class Boards(APIView) :
         return Response(serializer.data)
     
     def post(self, request) :
-        pass
+        serializer = BoardSerializer(data=request.data)
 
+        if serializer.is_valid() :
+            serializer.save() # create() 메소드를 호출하게 됨 
+            return Response(serializer.data)
+
+        return Response(serializer.errors)
 
 class BoardDetail(APIView) :
-    def get(self, request) :
-        pass
+    def get_object(self, pk) :
+        try :
+            board = Board.objects.get(pk=pk)
+            return board
+        except Board.DoesNotExist :
+            raise NotFound
 
-    def put(self, request) :
+    def get(self, request, pk) :
+        # pk를 가져와서 -> 보드 한개 가져오기 
+        board = self.get_object(pk)
+        # 보드 인스턴스를 -> JSON 형변환
+        serializer = BoardSerializer(board)
+        # Response 객체로 반환  
+        return Response(serializer.data)
         
-        pass
-    def delete(self, request) :
-        pass
+    def put(self, request, pk) :
+        board = self.get_object(pk)
+        serializer = BoardSerializer(instance=board, data=request.data, partial=True)
+
+        if serializer.is_valid() :
+            serializer.save()
+            return Response(serializer.data)
+        
+        return Response(serializer.errors)
+
+    def delete(self, request, pk) :
+        board = self.get_object(pk)
+        board.delete()
+        return Response({})
