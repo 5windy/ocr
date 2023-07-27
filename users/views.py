@@ -1,17 +1,47 @@
+from django.shortcuts import redirect
+from django.contrib.auth import authenticate, login, logout
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.exceptions import NotFound, PermissionDenied
-from rest_framework.status import HTTP_204_NO_CONTENT
+from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .models import User
 from .serializers import UserSerializer
 
-class Users(APIView) :
-    def get(self, request) :
-        users = User.objects.all()
-        serializer = UserSerializer(instance=users, many=True)
-        return Response(serializer.data)
+class Login(APIView) :
+    def post(self, request) :
+        username = request.data.get("username")
+        password = request.data.get("password")
 
+        user = authenticate(request, username=username, password=password)
+
+        # Not None
+        if user : 
+            login(request, user)
+            return Response({"login" : "success"})
+        else :
+            return Response(status.HTTP_401_UNAUTHORIZED)
+
+class Logout(APIView) :
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request) :
+        logout(request)
+        # return Response({})
+        return redirect("/api/v1/boards")
+
+class UserList(APIView) :
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request) :
+        if request.user.is_staff :
+            users = User.objects.all()
+            serializer = UserSerializer(instance=users, many=True)
+            return Response(serializer.data)
+        else :
+            raise PermissionDenied
+
+class Users(APIView) :
     def post(self, request) :
         serializer = UserSerializer(data=request.data)
 
@@ -55,6 +85,4 @@ class UserDetail(APIView) :
     def delete(self, request, pk) :
         user = self.get_object(request, pk)
         user.delete() 
-        return Response(HTTP_204_NO_CONTENT)
-
-
+        return Response(status.HTTP_204_NO_CONTENT)

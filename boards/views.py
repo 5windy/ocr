@@ -1,7 +1,7 @@
 # from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.exceptions import NotFound
+from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.shortcuts import render
 from django.http.response import HttpResponse
@@ -38,6 +38,8 @@ class Boards(APIView) :
         return Response(serializer.errors)
 
 class BoardDetail(APIView) :
+    permission_classes = [IsAuthenticatedOrReadOnly]
+
     def get_object(self, pk) :
         try :
             board = Board.objects.get(pk=pk)
@@ -55,6 +57,10 @@ class BoardDetail(APIView) :
         
     def put(self, request, pk) :
         board = self.get_object(pk)
+
+        if not board.author == request.user : 
+            raise PermissionDenied
+
         serializer = BoardSerializer(instance=board, data=request.data, partial=True)
 
         if serializer.is_valid() :
@@ -65,5 +71,9 @@ class BoardDetail(APIView) :
 
     def delete(self, request, pk) :
         board = self.get_object(pk)
+
+        if not board.author == request.user : 
+            raise PermissionDenied
+
         board.delete()
         return Response({})
