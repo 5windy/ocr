@@ -78,8 +78,11 @@ class UserDetail(APIView) :
         
         if serializer.is_valid() : 
             user = serializer.save()
-            user.set_password(user.password)
-            user.save()
+
+            if 'password' in request.data :
+                user.set_password(user.password)
+                user.save()
+
             return Response(serializer.data)
         else :
             return Response(serializer.errors)

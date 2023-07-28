@@ -1,4 +1,4 @@
-# from rest_framework.decorators import api_view
+from django.shortcuts import redirect
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework.exceptions import NotFound, PermissionDenied
@@ -35,7 +35,7 @@ class Boards(APIView) :
             board = serializer.save() # create() 메소드를 호출하게 됨 
             board.author = request.user
             board.save()
-            return Response(BoardSerializer(board).data)
+            return redirect(f'/board/{board.pk}')
 
         return Response(serializer.errors)
 

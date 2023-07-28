@@ -28,6 +28,13 @@ textarea {
     height: 20vh;
 }
 
-input[type='button'] {
+input[type='button'], 
+input[type='submit']
+{
     cursor: pointer;
+}
+
+img {
+    width: 80%;
+    margin: auto;
 }
