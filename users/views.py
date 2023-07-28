@@ -49,7 +49,7 @@ class Users(APIView) :
             user = serializer.save()
             user.set_password(user.password)
             user.save()
-            return Response(serializer.data)
+            return Response(UserViewSerializer(user).data)
         else :
             return Response(serializer.errors)
 
