@@ -12,5 +12,8 @@ def join(request) :
 def board(request, pk) :
     return render(request, 'board.html')
 
+def boards(request) :
+    return render(request, 'board_list.html')
+
 def board_form(request) :
     return render(request, 'board_form.html')

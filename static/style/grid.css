@@ -11,6 +11,10 @@ body {
     grid-template-rows: 120px minmax(70vh, auto) 200px;
 }
 
+section {
+    padding: 20px;
+}
+
 footer {
     background-color: whitesmoke;
     padding: 30px 20px;

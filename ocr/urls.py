@@ -7,4 +7,5 @@ urlpatterns = [
     path("join", join),
     path("board/write", board_form),
     path("board/<int:pk>", board),
+    path("boards", boards),
 ]
