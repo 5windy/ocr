@@ -5,18 +5,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'style/form.css' %}">
+    <script src="{% static 'script/csrf.js' %}"></script>
 </head>
 {% include 'header.html' %}
 <body>
     <section>
         <h2>로그인</h2>
-        <form method="POST" action="/api/v1/users/login">
-            {% csrf_token %}
+        <form>
             <input type="text" id="username" name="username" placeholder="username">
             <input type="password" id="password" name="password" placeholder="password">
-            <input type="submit" value="로그인">
+            <input type="button" value="로그인" onclick="login()">
         </form>
     </section>
 </body>
+<script src="{% static 'script/log-api.js' %}"></script>
 {% include 'footer.html' %}
 </html>

@@ -18,7 +18,7 @@ class Login(APIView) :
         # Not None
         if user : 
             login(request, user)
-            return Response({"login" : "success"})
+            return Response({'login' : 'success'})
         else :
             return Response(status.HTTP_401_UNAUTHORIZED)
 
@@ -75,9 +75,11 @@ class UserDetail(APIView) :
     def put(self, request, pk) :
         user = self.get_object(request, pk)
         serializer = UserSerializer(instance=user, data=request.data, partial=True)
-
+        
         if serializer.is_valid() : 
-            serializer.save()
+            user = serializer.save()
+            user.set_password(user.password)
+            user.save()
             return Response(serializer.data)
         else :
             return Response(serializer.errors)

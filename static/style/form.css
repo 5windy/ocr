@@ -27,3 +27,7 @@ textarea {
     resize: none;
     height: 20vh;
 }
+
+input[type='button'] {
+    cursor: pointer;
+}
