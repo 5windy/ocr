@@ -1,4 +1,6 @@
-form {
+form,
+#board-contents
+ {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -7,7 +9,14 @@ form {
     margin: auto;
 }
 
-input, textarea {
+#board-contents > p {
+    padding: 0 0 10px 5px;
+    font-size: 0.8em;
+}
+
+input, textarea,
+#image-container
+{
     margin: 5px 0;
     padding: 10px 5px;
     border: solid 1px lightblue;

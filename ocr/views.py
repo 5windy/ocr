@@ -9,5 +9,8 @@ def login(request) :
 def join(request) :
     return render(request, 'join_form.html')
 
-def board(request) :
+def board(request, pk) :
+    return render(request, 'board.html')
+
+def board_form(request) :
     return render(request, 'board_form.html')

@@ -5,5 +5,6 @@ urlpatterns = [
     path("", index),
     path("login", login),
     path("join", join),
-    path("board", board),
+    path("board/write", board_form),
+    path("board/<int:pk>", board),
 ]
