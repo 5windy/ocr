@@ -7,7 +7,7 @@ urlpatterns = [
     path("join", join),
     path("mypage", mypage),
     path("mypage/edit", user_update),
-    path("board/write", board_write),
+    path("board/write/", board_write),
     path("board/<int:pk>", board),
     path("board/<int:pk>/edit", board_update),
     path("boards", boards),

@@ -32,8 +32,10 @@ class Boards(APIView) :
         serializer = BoardSerializer(data=request.data)
 
         if serializer.is_valid() :
-            serializer.save() # create() 메소드를 호출하게 됨 
-            return Response(serializer.data)
+            board = serializer.save() # create() 메소드를 호출하게 됨 
+            board.author = request.user
+            board.save()
+            return Response(BoardSerializer(board).data)
 
         return Response(serializer.errors)
 
