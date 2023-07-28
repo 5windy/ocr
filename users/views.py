@@ -6,7 +6,7 @@ from rest_framework.exceptions import NotFound, PermissionDenied
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from .models import User
-from .serializers import UserSerializer
+from .serializers import *
 
 class Login(APIView) :
     def post(self, request) :
@@ -69,7 +69,7 @@ class UserDetail(APIView) :
 
     def get(self, request, pk) :
         user = self.get_object(request, pk)
-        serializer = UserSerializer(user)
+        serializer = UserViewSerializer(user)
         return Response(serializer.data)
 
     def put(self, request, pk) :

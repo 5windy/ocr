@@ -1,0 +1,22 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'style/form.css' %}">
+</head>
+{% include 'header.html' %}
+<body>
+    <section>
+        <h2>로그인</h2>
+        <form method="POST" action="/api/v1/users/login">
+            {% csrf_token %}
+            <input type="text" id="username" name="username" placeholder="username">
+            <input type="password" id="password" name="password" placeholder="password">
+            <input type="submit" value="로그인">
+        </form>
+    </section>
+</body>
+{% include 'footer.html' %}
+</html>
