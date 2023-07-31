@@ -90,7 +90,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.mysql",
         "NAME": "ocrdb", # 데이터베이스명 
         "USER": "root",
-        "PASSWORD": "password",
+        "PASSWORD": "bling8403",
         "HOST": "localhost",
         "PORT": "3306",
     }
@@ -155,7 +155,7 @@ REST_FRAMEWORK = {
     ]
 }
 
-UC_PUBLIC_KEY = 'UC_PUBLIC_KEY'
-UC_SECRET_KEY = 'UC_SECRET_KEY'
+UC_PUBLIC_KEY = '7d99a9de3e53f0258d76'
+UC_SECRET_KEY = '33be19c0a77bb4a39a21'
 
 FILE_SIZE_LIMIT = 104857600 # 100Mb limit 

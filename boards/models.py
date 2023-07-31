@@ -17,7 +17,7 @@ class Board(models.Model) :
     # 파일
     loaded_file = models.FileField(null=True, blank=True) 
     # 이미지 링크 
-    image_link = models.URLField(default='')
+    image_url = models.URLField(default='')
     # 등록일
     created_at = models.DateTimeField(auto_now_add=True)
     # 수정일 
