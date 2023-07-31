@@ -11,4 +11,5 @@ urlpatterns = [
     path("board/<int:pk>", board),
     path("board/<int:pk>/edit", board_update),
     path("boards", boards),
+    path("ocr", OCR.as_view()),
 ]

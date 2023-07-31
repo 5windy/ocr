@@ -1,4 +1,20 @@
+from PIL import Image
+import pytesseract
 from django.shortcuts import render
+from rest_framework.views import APIView
+from rest_framework.response import Response
+
+class OCR(APIView) :
+    def get(self, request) :
+        filename = "eurotext.png"
+        filepath = f"media/{filename}"
+        image = Image.open(filepath)
+        lang = "eng"
+        result = pytesseract.image_to_string(image, lang=lang)
+        return Response({
+            'result' : result
+        })
+
 
 def index(request) :
     return render(request, 'index.html')
